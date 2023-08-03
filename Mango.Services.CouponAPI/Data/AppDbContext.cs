@@ -11,5 +11,32 @@ namespace Mango.Services.CouponAPI.Data
         }
 
         public DbSet<Coupon> Coupons { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Coupon>().HasData(new Coupon {
+                CouponId = 1,
+                couponCode = "10%OFF",
+                DiscountAmount = 10,
+                MinAmount = 100,
+            });
+
+            modelBuilder.Entity<Coupon>().HasData(new Coupon
+            {
+                CouponId = 2,
+                couponCode = "5%OFF",
+                DiscountAmount = 5,
+                MinAmount = 50,
+            });
+
+            modelBuilder.Entity<Coupon>().HasData(new Coupon
+            {
+                CouponId = 3,
+                couponCode = "20%OFF",
+                DiscountAmount = 20,
+                MinAmount = 200,
+            });
+        }
     }
 }
