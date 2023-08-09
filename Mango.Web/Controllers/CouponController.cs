@@ -43,6 +43,7 @@ namespace Mango.Web.Controllers
                 ResponseDTO? response = await _couponService.CreateCouponAsync(model);
                 if (response != null && response.IsScucess)
                 {
+                    TempData["success"] = "Coupon Created successfully";
                     return RedirectToAction(nameof(CouponIndex));
                 }
                 else
@@ -58,7 +59,8 @@ namespace Mango.Web.Controllers
 			ResponseDTO? response = await _couponService.GetCouponByIdAsync(couponId);
 			if (response != null && response.IsScucess)
 			{
-				CouponDTO? model = JsonConvert.DeserializeObject<CouponDTO>(Convert.ToString(response.Result));
+                TempData["success"] = "Coupon Deleted successfully";
+                CouponDTO? model = JsonConvert.DeserializeObject<CouponDTO>(Convert.ToString(response.Result));
                 return View(model);
 			}
             else
