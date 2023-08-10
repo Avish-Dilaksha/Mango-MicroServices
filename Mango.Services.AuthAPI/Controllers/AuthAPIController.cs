@@ -11,18 +11,23 @@ namespace Mango.Services.AuthAPI.Controllers
     {
         private readonly IAuthService _authService;
         protected ResponseDTO _response;
+        public AuthAPIController(IAuthService authService, IConfiguration configuration)
+        {
+            _authService = authService;
+            _response = new();
+        }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegistrationRequestDTO model)
         {
-            var errorMessage = await _authService.Register(model);
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                _response.IsScucess = false;
-                _response.Message = errorMessage;
-                return BadRequest(_response);
-            }
-            return Ok(_response);
+                var errorMessage = await _authService.Register(model);
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    _response.IsScucess = false;
+                    _response.Message = errorMessage;
+                    return BadRequest(_response);
+                }
+                return Ok(_response);          
         }
 
 
